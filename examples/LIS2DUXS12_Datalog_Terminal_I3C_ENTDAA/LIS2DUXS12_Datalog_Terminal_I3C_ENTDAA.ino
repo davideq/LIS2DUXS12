@@ -49,24 +49,24 @@ void setup()
     while (1) {}
   }
   
-  uint8_t lsmDynAddr = 0U;
+  uint8_t lisDynAddr = 0U;
 
   for (size_t i = 0; i < found; ++i) {
     Serial.println(devices[i].pid, HEX);
     if (devices[i].pid == LIS2DUXS12_I3C_PID_H) {
-      lsmDynAddr = devices[i].dynAddr;
-      Serial.print("lsmDynAddr=");
-      Serial.println(lsmDynAddr, HEX);
+      lisDynAddr = devices[i].dynAddr;
+      Serial.print("lisDynAddr=");
+      Serial.println(lisDynAddr, HEX);
       break;
     }
   }
 
-  if (lsmDynAddr == 0U) {
+  if (lisDynAddr == 0U) {
     Serial.println("Sensor not found");
     while (1) {}
   }
 
-  if (sensor.begin(lsmDynAddr) != LIS2DUXS12_STATUS_OK) {
+  if (sensor.begin(lisDynAddr) != LIS2DUXS12_STATUS_OK) {
     Serial.println("sensor.begin() failed");
     while (1) {}
   }

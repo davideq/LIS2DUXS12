@@ -46,12 +46,16 @@
 LIS2DUXS12Sensor::LIS2DUXS12Sensor(TwoWire *i2c, uint8_t address) : dev_i2c(i2c), address(address)
 {
   dev_spi = NULL;
+  #if defined(I3C_SUPPORTED)
+  dev_i3c = NULL;
+  #endif
   bus_type = LIS2DUXS12_I2C_BUS;
   reg_ctx.write_reg = LIS2DUXS12_io_write;
   reg_ctx.read_reg = LIS2DUXS12_io_read;
   reg_ctx.handle = (void *)this;
   X_isInitialized = 0;
   X_isEnabled = 0;
+  
 }
 
 /** Constructor
@@ -65,6 +69,9 @@ LIS2DUXS12Sensor::LIS2DUXS12Sensor(SPIClass *spi, int cs_pin, uint32_t spi_speed
   reg_ctx.read_reg = LIS2DUXS12_io_read;
   reg_ctx.handle = (void *)this;
   dev_i2c = NULL;
+  #if defined(I3C_SUPPORTED)
+  dev_i3c = NULL;
+  #endif
   address = 0;
   X_isInitialized = 0;
   bus_type = LIS2DUXS12_SPI_4WIRES_BUS;
